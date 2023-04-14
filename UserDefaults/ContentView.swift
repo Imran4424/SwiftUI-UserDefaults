@@ -7,14 +7,16 @@
 
 import SwiftUI
 
-// user defaults in standard way for simple data
 struct ContentView: View {
-    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
-
+    // @AppStorage is another property wrapper of swiftUI
+    // it works like @State
+    // it uses userdefault underline
+    // so swiftui lift the heavy weights for us
+    @AppStorage("TapCount") private var tapCount = 0
+    
     var body: some View {
         Button("Tap Count \(tapCount)") {
             tapCount += 1
-            UserDefaults.standard.set(tapCount, forKey: "Tap")
         }
     }
 }
