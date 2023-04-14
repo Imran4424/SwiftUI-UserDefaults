@@ -7,17 +7,26 @@
 
 import SwiftUI
 
+struct User: Codable {
+    let firstName: String
+    let lastName: String
+}
+
 struct ContentView: View {
-    // @AppStorage is another property wrapper of swiftUI
-    // it works like @State
-    // it uses userdefault underline
-    // so swiftui lift the heavy weights for us
-    @AppStorage("TapCount") private var tapCount = 0
+    @State private var user = User(firstName: "Imran", lastName: "Hossain")
     
     var body: some View {
-        Button("Tap Count \(tapCount)") {
-            tapCount += 1
+        Button("Save user") {
+            let encoder = JSONEncoder()
+            
+            guard let data = try? encoder.encode(user) else {
+                print("user encoding failed")
+                return
+            }
+            
+            UserDefaults.standard.set(data, forKey: "UserData")
         }
+        .padding()
     }
 }
 
