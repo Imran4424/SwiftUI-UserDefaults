@@ -7,15 +7,15 @@
 
 import SwiftUI
 
+// user defaults in standard way for simple data
 struct ContentView: View {
+    @State private var tapCount = UserDefaults.standard.integer(forKey: "Tap")
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        Button("Tap Count \(tapCount)") {
+            tapCount += 1
+            UserDefaults.standard.set(tapCount, forKey: "Tap")
         }
-        .padding()
     }
 }
 
